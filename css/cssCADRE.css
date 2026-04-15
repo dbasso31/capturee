@@ -79,10 +79,9 @@ a {
 	
 .credit {
 	color: #3E3E3E;
-	position: absolute;
-	top:168px;
+	position: relative;
 	left: 0px;
-	line-height: 12px;
+	line-height: 6px;
 	font-family: 'Playfair Display', Georgia, serif;
 	font-size: 11px;
 	font-style: normal;

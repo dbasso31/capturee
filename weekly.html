@@ -157,15 +157,8 @@ function superbgimage_show(img) {
 	var songURL= "audio/" + $('#thumbs1 a' + "[rel='" + img + "']").attr('song') + ".mp3";
 	setActiveStyleSheet('cssCADRE');
 	
-	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)){ 
-		urlsong = songURL;
-		nextSong();
-	}﻿
-	else {
-		var params = {};
-		params.wmode = "transparent"; 
-		swfobject.embedSWF('audio.swf', 'audioplayer', '204', '20', '8',false, { audioFile:songURL, autoStart:'true', controlsColor:'#B1AECC', backgroundColor:'#000000'  },params );
-	}
+	urlsong = songURL;
+	nextSong();
 	
 }
 
@@ -243,13 +236,11 @@ function superbgimage_mousemove(img, e) {
         <a class="titleLabel titresong"></a><br />
         <a class="titleYear titresong"></a><br /><br />
         <div id='audioplayer'></div>
+        <div style="display:block; line-height:12px; font-family:'Playfair Display',Georgia,serif; font-size:11px; color:#3E3E3E; margin-top:6px;">
+          PHOTOGRAPHY : David Basso<br />
+          MUSIC SELECTION : J&eacute;r&ocirc;me Echenoz
+        </div>
 <fieldset id="control">
-			<span class="credit">
-	  PHOTOGRAPHY : David Basso<br />
-			MUSIC SELECTION : J&eacute;r&ocirc;me Echenoz<br />
-			<a href="http://www.webbyawards.com" target="_blank"><img src="img/webbywin.jpg" width="83" height="26" alt="Webby Winner" longdesc="http://www.webbyawards.com" /></a>&nbsp;&nbsp;<span class="creditfb"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fpages%2FCapturee%2F187083431316201&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0"></iframe>
-<div id="dock1"></span>  
-            </span>  
     </fieldset>
   <br /></div>
   <div id="dock2">
