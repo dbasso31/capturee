@@ -133,7 +133,7 @@ $(function() {
 
 	// initialize SuperBGImage
 	$('#thumbs1').superbgimage();
-	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)){ 
+	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || ('ontouchstart' in window)){
 		showPopOver('pop2');
 	}﻿
 
@@ -230,13 +230,13 @@ function superbgimage_mousemove(img, e) {
 
 <div id="dock">
 		<meta name="description" content="capturée (by David Basso & Jérôme Echenoz)" />
+        <div id='audioplayer'></div>
     	<a class="datephoto">Knee & Shoulder - 2013</a><br />
         <a class="titleArtiste titresong"></a><br />
         <a class="titleTrack titresong"></a><br />
         <a class="titleLabel titresong"></a><br />
         <a class="titleYear titresong"></a><br /><br />
-        <div id='audioplayer'></div>
-        <div style="display:block; line-height:12px; font-family:'Playfair Display',Georgia,serif; font-size:11px; color:#3E3E3E; margin-top:6px;">
+        <div id="dock-credits" style="display:block; line-height:12px; font-family:'Playfair Display',Georgia,serif; font-size:11px; color:#3E3E3E; margin-top:6px;">
           PHOTOGRAPHY : David Basso<br />
           MUSIC SELECTION : J&eacute;r&ocirc;me Echenoz
         </div>

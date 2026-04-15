@@ -261,3 +261,11 @@ fieldset * {
 	width:106px;
 	height:21px;
 }
+
+@media only screen and (max-device-width: 768px) {
+    #dock-credits { display: none !important; }
+    #audioplayer audio {
+        height: 80px !important;
+        width: 100% !important;
+    }
+}

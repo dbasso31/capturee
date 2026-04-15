@@ -285,6 +285,7 @@ input.rounded:focus {
         text-align: center;
         left: 0;
         top: 10px;
+        font-size: 36px;
     }
     #lineSeparation1, #lineSeparation2 { display: none; }
     #middleText { display: none; }
