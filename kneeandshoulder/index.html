@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="de">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+
+    <meta http-equiv="description" name="description" content="Photo Song Blog - 1 week, 1 picture, 1 song - by David BASSO and Jerome Tacteel Echenoz" />
+    <meta name="keywords" lang="fr" content="photo, song, blog, basso, echenoz, tacteel, capturee, song, uzik, paris, france" />
+    <meta name="author" lang="fr" content="David Basso" />
+    <meta name="copyright" content="Copyright (c) 2010 David Basso - All rights reserved" />
+    <meta name="identifier-url" content="http://www.capturee.fr" />
+    <meta name="expires" content="never" />
+    <meta name="revisit-after" content="7 days" />
+
+	<title>Capturée (by David Basso &amp; Jérôme Echenoz) / 1 week, 1 picture, 1 song</title>
+ 
+	<!-- <link type="text/css" href="css/style.css" media="screen" rel="stylesheet" /> -->
+	<link type="text/css" href="css/dockCADRE.css" media="screen" rel="stylesheet" />
+	<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link title="cssCADRE" rel="stylesheet" type="text/css" href="css/cssCADRE.css" media="screen">
+    <link href="css/popover.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.effects.core.min.js"></script>
+	<script type="text/javascript" src="js/jquery.effects.slide.min.js"></script>
+	<script type="text/javascript" src="js/jquery.effects.blind.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.superbgimageCADRE.min.js"></script>
+
+	<script type="text/javascript" src="js/fs.js"></script>
+	<script type="text/javascript" src="js/dockCADRE.js"></script>
+    
+    <script type="text/javascript" src="js/swfobject.js"/></script>
+    
+    <script src="js/popover.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+
+//AUDIO
+function loadPlayer() {
+	var audioPlayerVal = new Audio();
+	audioPlayerVal.controls="controls";
+	audioPlayerVal.autoplay="autoplay";
+	audioPlayerVal.volume=1;
+	audioPlayerVal.addEventListener('ended',superbgimage_click,true);
+	audioPlayerVal.addEventListener('error',errorFallback,true);
+	//audioPlayerVal.addEventListener('ended', alert("fini"));
+	document.getElementById("audioplayer").appendChild(audioPlayerVal);
+	nextSong();
+}
+function nextSong() {
+	if(urlsong!='vide') {
+		var audioPlayerVal = document.getElementsByTagName('audio')[0];
+		if(audioPlayerVal!=undefined) {
+			audioPlayerVal.volume=1;
+			audioPlayerVal.src=urlsong;
+			audioPlayerVal.load();
+			audioPlayerVal.play();
+		} else {
+			loadPlayer();
+		}
+	} else {
+		alert('the end!');
+	}
+}
+function errorFallback() {
+		nextSong();
+}
+function playPause() {
+	var audioPlayerVal = document.getElementsByTagName('audio')[0];
+	if(audioPlayerVal!=undefined) {
+		if (audioPlayerVal.paused) {
+			audioPlayerVal.play();
+		} else {
+			audioPlayerVal.pause();
+		}
+	} else {
+		loadPlayer();
+	}
+}
+function pickSong(num) {
+	next = num;
+	nextSong();
+}
+
+var urlsong = 'vide';
+
+
+
+////////////////////////
+
+function setActiveStyleSheet(title) {
+   var i, a, main;
+   for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
+     if(a.getAttribute("rel").indexOf("style") != -1
+        && a.getAttribute("title")) {
+       a.disabled = true;
+       if(a.getAttribute("title") == title) a.disabled = false;
+     }
+   }
+ 	document.getElementById("imgPREV").src = "assets/previous2.gif";
+	document.getElementById("imgNEXT").src = "assets/next2.gif";
+}
+
+$(function() {
+
+	// Options for SuperBGImage
+		$.fn.superbgimage.options = {
+		id: 'superbgimage', // id for the containter
+		z_index: 0, // z-index for the container
+		inlineMode: 0, // 0-resize to browser size, 1-do not resize to browser-size
+		showimage: 1, // number of first image to display
+		vertical_center: 0, // 0-align top, 1-center vertical
+		transition: 91, // 0-none, 1-fade, 2-slide down, 3-slide left, 4-slide top, 5-slide right, 6-blind horizontal, 7-blind vertical, 90-slide right/left, 91-slide top/down
+		transitionout: 1, // 0-no transition for previous image, 1-transition for previous image
+		randomtransition: 0, // 0-none, 1-use random transition (0-7)
+		showtitle: 0, // 0-none, 1-show title
+		slideshow: 0, // 0-none, 1-autostart slideshow
+		slide_interval: 50000, // interval for the slideshow
+		randomimage: 0, // 0-none, 1-random image
+		speed: 'slow', // animation speed
+		preload: 1, // 0-none, 1-preload images
+		onShow: superbgimage_show, // function-callback show image
+		onClick: superbgimage_click, // function-callback click image
+		onHide: superbgimage_hide, // function-callback hide image
+		onMouseenter: superbgimage_mouseenter, // function-callback mouseenter
+		onMouseleave: superbgimage_mouseleave, // function-callback mouseleave
+		onMousemove: superbgimage_mousemove // function-callback mousemove
+	};
+
+	// initialize SuperBGImage
+	$('#thumbs1').superbgimage();
+	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)){ 
+		showPopOver('pop2');
+	}﻿
+
+});
+
+// function callback on hiding image
+function superbgimage_hide(img) {
+	$('#showtitle').hide();
+}
+
+// function callback on showing image
+// get title and display it
+function superbgimage_show(img) {
+		
+	$('.prev').css("visibility",'visible');
+	$('.next').css("visibility",'visible');
+	$('#superbgimage').append($('#showtitle'));
+	$('a.imagecount').html(/*'image ' +*/ img /*+ ' of ' + $.superbg_imgIndex*/);
+	$('a.title').fadeIn('fast');
+	
+	var songURL= "audio/" + $('#thumbs1 a' + "[rel='" + img + "']").attr('song') + ".mp3";
+	setActiveStyleSheet('cssCADRE');
+	
+	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)){ 
+		urlsong = songURL;
+		nextSong();
+	}﻿
+	else {
+		var params = {};
+		params.wmode = "transparent"; 
+		swfobject.embedSWF('audio.swf', 'audioplayer', '204', '20', '8',false, { audioFile:songURL, autoStart:'true', controlsColor:'#B1AECC', backgroundColor:'#000000'  },params );
+	}
+	
+}
+
+// function callback on clicking image, show next slide
+function superbgimage_click(img) {
+	$('#thumbs').nextSlide();
+}
+
+my_slideshowActive = false;
+
+// function callback onmouseenter, stop slideshow, show pause-indicator
+function superbgimage_mouseenter(img) {
+	if ($.superbg_slideshowActive) {
+		my_slideshowActive = true;
+		if ($('#pause').length == 0) { 
+			$('body').prepend('<div id="pause"><img src="pause.png" \/><\/div>');
+		}
+		$('#pause').css('position', 'absolute').css('z-index', 3).show();
+		return $('#thumbs').stopSlideShow();
+	}
+}
+
+// function callback onmouseleave, start slideshow, hide pause-indicator
+function superbgimage_mouseleave(img) {
+	if (my_slideshowActive && ($('#pause').length > 0) && ($('#pause').css('display') == 'block'))  { 
+		$('#pause').hide();
+		return $('#thumbs').startSlideShow();
+	}	
+}
+
+// function callback onmousemove, show and move pause-indicator
+function superbgimage_mousemove(img, e) {
+	if (my_slideshowActive && ($('#pause').length > 0)) { 
+		$("#pause").css("top",(e.pageY + 20) + "px").css("left",(e.pageX + 20) + "px").show();
+	}
+}
+
+
+//GOOGLE
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20911489-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</head>
+
+<body>
+
+
+<div id="overlay"> <!-- content above BGimage -->
+
+<div id="pop2" class="popover2" align="center">
+			<a href="javascript:closePopOver('pop2');" onclick="playPause()">touch me...</a>
+		</div>		
+<div id="transBG" class="transBG"></div>
+
+<a class="prev" href="#"><img id="imgPREV" src="assets/previous2.gif" alt="previous" /></a>
+     <a class="next" href="#"><img id="imgNEXT" src="assets/next2.gif" alt="next" /></a>
+
+
+<div id="dock">
+		<meta name="description" content="capturée (by David Basso & Jérôme Echenoz)" />
+    	<a class="datephoto">Knee & Shoulder - 2013</a><br />
+        <a class="titleArtiste titresong"></a><br />
+        <a class="titleTrack titresong"></a><br />
+        <a class="titleLabel titresong"></a><br />
+        <a class="titleYear titresong"></a><br /><br />
+        <div id='audioplayer'></div>
+<fieldset id="control">
+			<span class="credit">
+	  PHOTOGRAPHY : David Basso<br />
+			MUSIC SELECTION : J&eacute;r&ocirc;me Echenoz<br />
+			<span class="creditfb"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fpages%2FCapturee%2F187083431316201&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0"></iframe>
+<div id="dock1"></span>  
+            </span>  
+    </fieldset>
+  <br /></div>
+  <div id="dock2">
+        
+
+		
+<fieldset id="thumbs1">
+       		<br /><br /><br /><br /><br />
+            <a href="img/01kneeandshoulder.jpg" titleArtiste="Brenda & The Big Dudes" titleTrack="Weekend Special" titleLabel="Family Records" titleYear="1983" song="01 weekend special" date="" dark="white">7</a>
+            <a href="img/02kneeandshoulder.jpg" titleArtiste="Paul McCartney " titleTrack="3 legs" titleLabel="Apple Records" titleYear="1971" song="02 Paul Mc Cartney - 3 legs" date="" dark="fondblack">6</a>
+            <a href="img/03kneeandshoulder.jpg" titleArtiste="Matt Monro" titleTrack="Music To Watch Girls By" titleLabel="Capitol" titleYear="1967" song="03 Music To Watch Girls By" date="" dark="fond">5</a>
+            <a href="img/04kneeandshoulder.jpg" titleArtiste="Polyrock" titleTrack="Your Dragging Feet" titleLabel="RCA Victor" titleYear="1980" song="04 Polyrock - Your Dragging Feet" date="" dark="white">4</a>
+            <a href="img/05kneeandshoulder.jpg" titleArtiste="Harry Nilsson" titleTrack="One" titleLabel="RCA Victor" titleYear="1973" song="05 Harry Nilsson - One" date="" dark="fond">3</a>
+            <a href="img/06kneeandshoulder.jpg" titleArtiste="Rascals" titleTrack="A Place In The Sun" titleLabel="Atlantic" titleYear="1967" song="06 Rascals - A Place in the Sun" date="" dark="white">2</a>
+            <a href="img/07kneeandshoulder.jpg" titleArtiste="Lovelock" titleTrack="Don't Turn Away (from my love)" titleLabel="Internasjonal" titleYear="2012" song="07 Don't Turn Away (From My Love)" date="" dark="white">1</a>
+			<br style="clear:both"/>
+	  </fieldset>
+
+        
+	</div>
+  </div>
+</div>
+	
+
+</div>
+		
+	</div>
+
+<!--<div id="showtitle">
+		 <p class="imagecount small">1 of 1</p>
+		 <p class="title small">description</p>
+	</div> no need for this anymore-->
+
+
+	
+</body>
+</html>

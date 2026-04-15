@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="de">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+
+    <meta http-equiv="description" name="description" content="Photo Song Blog - 1 week, 1 picture, 1 song - by David BASSO and Jerome Tacteel Echenoz" />
+    <meta name="keywords" lang="fr" content="photo, song, blog, basso, echenoz, tacteel, capturee, song, uzik, paris, france" />
+    <meta name="author" lang="fr" content="David Basso" />
+    <meta name="copyright" content="Copyright (c) 2010 David Basso - All rights reserved" />
+    <meta name="identifier-url" content="http://www.capturee.fr" />
+    <meta name="expires" content="never" />
+    <meta name="revisit-after" content="7 days" />
+    
+   
+	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.jcarousel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/skin.css" />
+    
+	<script type="text/javascript">
+    function mycarousel_initCallback(carousel)
+    {
+        // Disable autoscrolling if the user clicks the prev or next button.
+        carousel.buttonNext.bind('click', function() {
+            carousel.startAuto(0);
+        });
+    
+        carousel.buttonPrev.bind('click', function() {
+            carousel.startAuto(0);
+        });
+    
+        // Pause autoscrolling if the user moves with the cursor over the clip.
+        carousel.clip.hover(function() {
+            carousel.stopAuto();
+        }, function() {
+            carousel.startAuto();
+        });
+    };
+	
+	jQuery.easing['easeInOutExpo'] = function (x, t, b, c, d) {
+		if (t==0) return b;
+		if (t==d) return b+c;
+		if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b;
+		return c/2 * (-Math.pow(2, -10 * --t) + 2) + b;
+	};
+    
+    jQuery(document).ready(function() {
+        jQuery('#mycarousel').jcarousel({
+            auto: 1.5,
+			wrap: "circular",
+			animation: 600,
+			vertical: true,
+			size: 4,
+			scroll: 1,
+			easing: 'easeInOutExpo',
+            initCallback: mycarousel_initCallback
+        });
+    });
+	
+	jQuery(document).ready(function() {
+        jQuery('#mycarousel2').jcarousel({
+            auto: 1.5,
+			wrap: "circular",
+			animation: 600,
+			vertical: true,
+			size: 4,
+			scroll: 1,
+			easing: 'easeInOutExpo',
+            initCallback: mycarousel_initCallback
+        });
+    });	
+	
+	jQuery(document).ready(function() {
+        jQuery('#mycarousel3').jcarousel({
+            auto: 1.5,
+			wrap: "circular",
+			animation: 600,
+			vertical: true,
+			size: 3,
+			scroll: 1,
+			easing: 'easeInOutExpo',
+            initCallback: mycarousel_initCallback
+        });
+    });	
+    </script>    
+
+	<title>Capturée (by David Basso &amp; Jérôme Echenoz) / 1 week, 1 picture, 1 song</title>
+<link href="css/cssINDEX.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+//GOOGLE
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20911489-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+
+<body onload="MM_preloadImages('assets/OPEN2.jpg')">
+<div id="header">
+  <div id="logo">Capturée</div>
+<div id="lineSeparation1">
+    	<hr color="#cccccc" width="760" size="1" style=" position:relative; top:31px;" />
+    </div>
+</div>
+<div id="middleText">
+	<div id="text1"><br /><br /><br /><br />Capturée is a photo song blog.<br /><br /><br /><br /><br />1 week, 1 picture, 1 song.
+	</div>
+    <div id="lineSeparation2">
+    	<hr color="#cccccc" width="760" size="1" style=" position:relative; top:31px;" />
+    </div>
+</div>
+<div id="middlePush">
+	<div id="photoCadre"><a href="weekly.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('pushOPEN','','assets/OPEN2.jpg',1)">
+      <ul id="mycarousel" class="jcarousel-skin-tango">
+    <li><img src="img/INDEX1-014.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX1-013.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX1-012.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX1-011.jpg" width="368" height="300" alt="" /></li>
+      </ul>
+    </a></div>
+    <div id="pushCadre">
+        <div id="pushBTN">
+          <a href="weekly.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('pushOPEN','','assets/OPEN2.jpg',1)"><img src="assets/OPEN1.jpg" width="100" height="100" border="0" id="pushOPEN" /></a>
+        </div>
+        <div id="pushTXT">Weekly<br />Serie</div>
+    </div>	
+    <div id="lineSeparation2">
+    	<hr color="#cccccc" width="760" size="1" style=" position:relative; top:31px;" />
+    </div>
+</div>
+
+<div id="middlePush">
+	<div id="photoCadre"><a href="kneeandshoulder/index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('pushOPEN3','','assets/OPEN2.jpg',1)">
+      <ul id="mycarousel3" class="jcarousel-skin-tango">
+    <li><img src="img/INDEX3.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX32.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX33.jpg" width="368" height="300" alt="" /></li>
+      </ul>
+    </a></div>
+    <div id="pushCadre">
+        <div id="pushBTN">
+          <a href="kneeandshoulder/index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('pushOPEN3','','assets/OPEN2.jpg',1)"><img src="assets/OPEN1.jpg" width="100" height="100" border="0" id="pushOPEN3" /></a>
+        </div>
+        <div id="pushTXT">Special Series<br />Knee & Shoulder<br />2013</div>
+    </div>	
+    <div id="lineSeparation2">
+    	<hr color="#cccccc" width="760" size="1" style=" position:relative; top:31px;" />
+    </div>
+</div>
+
+<div id="middlePush2">
+	<div id="photoCadre"><a href="Calvi2012/index.html" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('pushOPEN2','','assets/OPEN2.jpg',1)">
+    <ul id="mycarousel2" class="jcarousel-skin-tango">
+    <li><img src="img/INDEX2.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX22.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX23.jpg" width="368" height="300" alt="" /></li>
+    <li><img src="img/INDEX24.jpg" width="368" height="300" alt="" /></li>
+      </ul>
+    </a></div>
+    <div id="pushCadre">
+        <div id="pushBTN">
+          <a href="Calvi2012/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('pushOPEN2','','assets/OPEN2.jpg',1)"><img src="assets/OPEN1.jpg" width="100" height="100" border="0" id="pushOPEN2" /></a>
+        </div>
+        <div id="pushTXT">Special Series<br />Calvi On The Rocks<br />2012</div>
+    </div>
+</div>
+<div id="footer">
+    <div id="footer2">
+   		<div id="Credits"><br /><br />PHOTOGRAPHY : David Basso<br />SONG SELECTION : Jérôme Echenoz<br />
+	</div>
+        <div id="Webby"><img src="assets/WebbyFooter.jpg" alt="" width="200" height="160" /></div>
+        <div id="RS">
+            <div id="RSfb">
+                <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fpages%2FCapturee%2F187083431316201&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" height="20px"></iframe>    
+                <iframe allowtransparency="true" src="http://platform.twitter.com/widgets/follow_button.html?screen_name=capturee&show_count=false&show_screen_name=false" scrolling="no" frameborder="0" height="20px"></iframe> 
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+
+</body>
+</html>

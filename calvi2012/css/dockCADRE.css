@@ -1,0 +1,99 @@
+
+
+body {
+	width:100%;
+	border: none;
+	background-color: #FFFFFF;
+}
+
+#top {
+ width: 0px;
+ height: 0px; /**/
+ margin: 0 auto;
+ border: none;
+}
+
+#dock {
+	bottom: 0;
+	/*background: url('../assets/namecard.png') no-repeat;*/
+	position: fixed;
+	overflow: hidden;
+	height: 900px;
+	width: 400px;
+	visibility: hidden;
+	border: none;
+	
+	line-height: 21px;
+ }
+
+#dock1 {
+	width: 100%;
+	display: block;
+	top: 0px;
+	margin: 0px 0px auto;
+	height: 57px;
+	clear: both;
+	border: none;
+}
+
+#dock2 {
+	width: 100%;
+	visibility: hidden;
+	display: block;
+	position: relative;
+	margin: 0px 0px;
+	height: 10px;
+	border: none;	
+}
+
+#dock3 {
+	bottom: 0;
+	position: fixed;
+	overflow: hidden;
+	margin-top: 48px;
+	height: 400px;
+	width: 300px;
+	visibility: hidden;
+	border: none;
+	line-height: 15px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:12px;
+	font-weight:normal;
+	letter-spacing:normal;
+	color:#333;
+	display:inline;
+	font-style: italic;	/*background-color: #F00;*/
+}
+
+.creditpixel {
+	bottom: 0;
+	/*background: url('../assets/namecard.png') no-repeat;*/
+	position: fixed;
+	margin-left:18px;
+	height: 32px;
+	width: 166px;
+	border: none;
+}
+
+.creditfb {
+	position: absolute;
+	top:30px;
+	margin-top: 3px;
+	margin-left:0px;
+	margin-bottom:0px;
+	border: none;
+	visibility:hidden;
+}
+
+
+#dock3 a img {
+ border: none;
+ }
+
+#dock2 a img {
+ border: none;
+ }
+ 
+ #dock1 a img {
+ border: none;
+ }

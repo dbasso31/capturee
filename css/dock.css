@@ -1,0 +1,80 @@
+
+
+body {
+	width:100%;
+	border: none;
+	background-color: #FFFFFF;
+}
+
+#top {
+ width: 277px;
+ height: 500px; /**/
+ margin: 0 auto;
+ border: none;
+}
+
+#dock {
+	bottom: 0;
+	/*background: url('../assets/namecard.png') no-repeat;*/
+	position: fixed;
+	overflow: hidden;
+	height: 158px;
+	width: 400px;
+	visibility: hidden;
+	border: none;
+	
+	line-height: 21px;
+	/*background-color: #9C9FC9;*/
+ }
+
+#dock1 {
+	width: 100%;
+	display: block;
+	position: relative;
+	margin: 43px 0px auto;
+	height: 57px;
+	clear: both;
+	border: none;
+	/*background-color: #00CC00; */
+}
+
+#dock2 {
+	width: 100%;
+	display: block;
+	position: relative;
+	margin: 200px 10px;
+	height: 361px;
+	border: none;
+	background-color: #FF0000;
+}
+
+.creditpixel {
+	bottom: 0;
+	/*background: url('../assets/namecard.png') no-repeat;*/
+	position: fixed;
+	margin-left:18px;
+	height: 32px;
+	width: 166px;
+	border: none;
+}
+
+.creditfb {
+	bottom: 0;
+	/*background: url('../assets/namecard.png') no-repeat;*/
+	position: fixed;
+	margin-left:18px;
+	margin-bottom:31px;
+	height: 21px;
+	width: 106px;	
+	overflow:hidden;
+	border: none;
+}
+
+
+#dock2 a img {
+ border: none;
+ }
+ 
+ #dock1 a img {
+ border: none;
+ }

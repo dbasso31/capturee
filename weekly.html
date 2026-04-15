@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="de">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+
+    <meta http-equiv="description" name="description" content="Photo Song Blog - 1 week, 1 picture, 1 song - by David BASSO and Jerome Tacteel Echenoz" />
+    <meta name="keywords" lang="fr" content="photo, song, blog, basso, echenoz, tacteel, capturee, song, uzik, paris, france" />
+    <meta name="author" lang="fr" content="David Basso" />
+    <meta name="copyright" content="Copyright (c) 2010 David Basso - All rights reserved" />
+    <meta name="identifier-url" content="http://www.capturee.fr" />
+    <meta name="expires" content="never" />
+    <meta name="revisit-after" content="7 days" />
+
+	<title>Capturée (by David Basso &amp; Jérôme Echenoz) / 1 week, 1 picture, 1 song</title>
+ 
+	<!-- <link type="text/css" href="css/style.css" media="screen" rel="stylesheet" /> -->
+	<link type="text/css" href="css/dockCADRE.css" media="screen" rel="stylesheet" />
+	<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link title="cssCADRE" rel="stylesheet" type="text/css" href="css/cssCADRE.css" media="screen">
+    <link href="css/popover.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="js/jquery.effects.core.min.js"></script>
+	<script type="text/javascript" src="js/jquery.effects.slide.min.js"></script>
+	<script type="text/javascript" src="js/jquery.effects.blind.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.superbgimageCADRE.min.js"></script>
+
+	<script type="text/javascript" src="js/fs.js"></script>
+	<script type="text/javascript" src="js/dockCADRE.js"></script>
+    
+    <script type="text/javascript" src="js/swfobject.js"/></script>
+    
+    <script src="js/popover.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+
+//AUDIO
+function loadPlayer() {
+	var audioPlayerVal = new Audio();
+	audioPlayerVal.controls="controls";
+	audioPlayerVal.autoplay="autoplay";
+	audioPlayerVal.volume=1;
+	audioPlayerVal.addEventListener('ended',superbgimage_click,true);
+	audioPlayerVal.addEventListener('error',errorFallback,true);
+	//audioPlayerVal.addEventListener('ended', alert("fini"));
+	document.getElementById("audioplayer").appendChild(audioPlayerVal);
+	nextSong();
+}
+function nextSong() {
+	if(urlsong!='vide') {
+		var audioPlayerVal = document.getElementsByTagName('audio')[0];
+		if(audioPlayerVal!=undefined) {
+			audioPlayerVal.volume=1;
+			audioPlayerVal.src=urlsong;
+			audioPlayerVal.load();
+			audioPlayerVal.play();
+		} else {
+			loadPlayer();
+		}
+	} else {
+		alert('the end!');
+	}
+}
+function errorFallback() {
+		nextSong();
+}
+function playPause() {
+	var audioPlayerVal = document.getElementsByTagName('audio')[0];
+	if(audioPlayerVal!=undefined) {
+		if (audioPlayerVal.paused) {
+			audioPlayerVal.play();
+		} else {
+			audioPlayerVal.pause();
+		}
+	} else {
+		loadPlayer();
+	}
+}
+function pickSong(num) {
+	next = num;
+	nextSong();
+}
+
+var urlsong = 'vide';
+
+
+
+////////////////////////
+
+function setActiveStyleSheet(title) {
+   var i, a, main;
+   for(i=0; (a = document.getElementsByTagName("link")[i]); i++) {
+     if(a.getAttribute("rel").indexOf("style") != -1
+        && a.getAttribute("title")) {
+       a.disabled = true;
+       if(a.getAttribute("title") == title) a.disabled = false;
+     }
+   }
+ 	document.getElementById("imgPREV").src = "assets/previous2.gif";
+	document.getElementById("imgNEXT").src = "assets/next2.gif";
+}
+
+$(function() {
+
+	// Options for SuperBGImage
+		$.fn.superbgimage.options = {
+		id: 'superbgimage', // id for the containter
+		z_index: 0, // z-index for the container
+		inlineMode: 0, // 0-resize to browser size, 1-do not resize to browser-size
+		showimage: 1, // number of first image to display
+		vertical_center: 0, // 0-align top, 1-center vertical
+		transition: 91, // 0-none, 1-fade, 2-slide down, 3-slide left, 4-slide top, 5-slide right, 6-blind horizontal, 7-blind vertical, 90-slide right/left, 91-slide top/down
+		transitionout: 1, // 0-no transition for previous image, 1-transition for previous image
+		randomtransition: 0, // 0-none, 1-use random transition (0-7)
+		showtitle: 0, // 0-none, 1-show title
+		slideshow: 0, // 0-none, 1-autostart slideshow
+		slide_interval: 50000, // interval for the slideshow
+		randomimage: 0, // 0-none, 1-random image
+		speed: 'slow', // animation speed
+		preload: 1, // 0-none, 1-preload images
+		onShow: superbgimage_show, // function-callback show image
+		onClick: superbgimage_click, // function-callback click image
+		onHide: superbgimage_hide, // function-callback hide image
+		onMouseenter: superbgimage_mouseenter, // function-callback mouseenter
+		onMouseleave: superbgimage_mouseleave, // function-callback mouseleave
+		onMousemove: superbgimage_mousemove // function-callback mousemove
+	};
+
+	// initialize SuperBGImage
+	$('#thumbs1').superbgimage();
+	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)){ 
+		showPopOver('pop2');
+	}﻿
+
+});
+
+// function callback on hiding image
+function superbgimage_hide(img) {
+	$('#showtitle').hide();
+}
+
+// function callback on showing image
+// get title and display it
+function superbgimage_show(img) {
+		
+	$('.prev').css("visibility",'visible');
+	$('.next').css("visibility",'visible');
+	$('#superbgimage').append($('#showtitle'));
+	$('a.imagecount').html(/*'image ' +*/ img /*+ ' of ' + $.superbg_imgIndex*/);
+	$('a.title').fadeIn('fast');
+	
+	var songURL= "audio/" + $('#thumbs1 a' + "[rel='" + img + "']").attr('song') + ".mp3";
+	setActiveStyleSheet('cssCADRE');
+	
+	if( navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)){ 
+		urlsong = songURL;
+		nextSong();
+	}﻿
+	else {
+		var params = {};
+		params.wmode = "transparent"; 
+		swfobject.embedSWF('audio.swf', 'audioplayer', '204', '20', '8',false, { audioFile:songURL, autoStart:'true', controlsColor:'#B1AECC', backgroundColor:'#000000'  },params );
+	}
+	
+}
+
+// function callback on clicking image, show next slide
+function superbgimage_click(img) {
+	$('#thumbs').nextSlide();
+}
+
+my_slideshowActive = false;
+
+// function callback onmouseenter, stop slideshow, show pause-indicator
+function superbgimage_mouseenter(img) {
+	if ($.superbg_slideshowActive) {
+		my_slideshowActive = true;
+		if ($('#pause').length == 0) { 
+			$('body').prepend('<div id="pause"><img src="pause.png" \/><\/div>');
+		}
+		$('#pause').css('position', 'absolute').css('z-index', 3).show();
+		return $('#thumbs').stopSlideShow();
+	}
+}
+
+// function callback onmouseleave, start slideshow, hide pause-indicator
+function superbgimage_mouseleave(img) {
+	if (my_slideshowActive && ($('#pause').length > 0) && ($('#pause').css('display') == 'block'))  { 
+		$('#pause').hide();
+		return $('#thumbs').startSlideShow();
+	}	
+}
+
+// function callback onmousemove, show and move pause-indicator
+function superbgimage_mousemove(img, e) {
+	if (my_slideshowActive && ($('#pause').length > 0)) { 
+		$("#pause").css("top",(e.pageY + 20) + "px").css("left",(e.pageX + 20) + "px").show();
+	}
+}
+
+
+//GOOGLE
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20911489-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</head>
+
+<body>
+
+
+<div id="overlay"> <!-- content above BGimage -->
+
+<div id="pop2" class="popover2" align="center">
+			<a href="javascript:closePopOver('pop2');" onclick="playPause()">touch me...</a>
+		</div>		
+<div id="transBG" class="transBG"></div>
+
+<a class="prev" href="#"><img id="imgPREV" src="assets/previous2.gif" alt="previous" /></a>
+     <a class="next" href="#"><img id="imgNEXT" src="assets/next2.gif" alt="next" /></a>
+
+
+<div id="dock">
+		<meta name="description" content="capturée (by David Basso & Jérôme Echenoz)" />
+    	<a class="date datephoto"></a><br />
+        <a class="titleArtiste titresong"></a><br />
+        <a class="titleTrack titresong"></a><br />
+        <a class="titleLabel titresong"></a><br />
+        <a class="titleYear titresong"></a><br /><br />
+        <div id='audioplayer'></div>
+<fieldset id="control">
+			<span class="credit">
+	  PHOTOGRAPHY : David Basso<br />
+			MUSIC SELECTION : J&eacute;r&ocirc;me Echenoz<br />
+			<a href="http://www.webbyawards.com" target="_blank"><img src="img/webbywin.jpg" width="83" height="26" alt="Webby Winner" longdesc="http://www.webbyawards.com" /></a>&nbsp;&nbsp;<span class="creditfb"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffacebook.com%2Fpages%2FCapturee%2F187083431316201&amp;layout=button_count&amp;show_faces=false&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0"></iframe>
+<div id="dock1"></span>  
+            </span>  
+    </fieldset>
+  <br /></div>
+  <div id="dock2">
+        
+
+		
+<fieldset id="thumbs1">
+       		<br /><br /><br /><br /><br />
+            <a href="img/formentera4.jpg" titleArtiste="The Style Council" titleTrack="Long Hot Summer" titleLabel="Polydor" titleYear="1983" song="Long Hot Summer" date="19/03/2014" dark="black">94</a>
+            <a href="img/formentera3.jpg" titleArtiste="Tarika Blue" titleTrack="Dreamflower" titleLabel="Chiaroscuro Records" titleYear="1977" song="Dreamflower (Original Music Mix)" date="10/01/2014" dark="black">93</a>
+            <a href="img/formentera2.jpg" titleArtiste="Aphex Twin" titleTrack="Xtal" titleLabel="Apollo" titleYear="1992" song="aphex twin xtal" date="20/11/2013" dark="black">92</a>
+            <a href="img/formentera.jpg" titleArtiste="Sarah Vaughan" titleTrack="The Mystery of Man" titleLabel="Jazzletter Records" titleYear="1984" song="2-01 The Mystery Of Man" date="04/11/2013" dark="black">91</a>
+            <a href="img/rome02.jpg" titleArtiste="Tomita" titleTrack="Prelude To The Afternoon Of A Faun" titleLabel="RCA" titleYear="1976" song="B1 Prelude To The Afternoon Of A Faun" date="17/07/2013" dark="black">90</a>
+            <a href="img/rome01.jpg" titleArtiste="Christophe" titleTrack="Un tour d'Harley avec Lucie" titleLabel="Les Disques Motors" titleYear="1988" song="05 Un tour d Harley avec Lucie" date="24/06/2013" dark="black">89</a>
+            <a href="img/calvi7.jpg" titleArtiste="Paul Simon" titleTrack="Diamonds on the Soles of her Shoes" titleLabel="Warner" titleYear="1986" song="15 Diamonds on the Soles of Her Shoes" date="12/06/2013" dark="black">88</a>
+            <a href="img/myprovence07.jpg" titleArtiste="Roy Orbison" titleTrack="This Land Is My Land" titleLabel="MGM" titleYear="1966" song="04 This Land Is My Land" date="15/05/2013" dark="black">87</a>
+            <a href="img/pcf2.jpg" titleArtiste="Chassol" titleTrack="Touché par la Grâce" titleLabel="Tricatel" titleYear="2012" song="2-09 Touche Par La Grace" date="10/05/2013" dark="black">86</a>
+            <a href="img/myprovence06.jpg" titleArtiste="Mick Softley" titleTrack="Time Machine" titleLabel="CBS Records" titleYear="1970" song="10 - Time Machine" date="06/05/2013" dark="black">85</a>
+            <a href="img/canal.jpg" titleArtiste="Dobie Gray" titleTrack="The 'In' Crowd" titleLabel="Charger" titleYear="1965" song="01 The _In_ Crowd" date="23/04/2013" dark="black">84</a>
+            <a href="img/arles.jpg" titleArtiste="Saint Etienne" titleTrack="Only Love Can Break Your Heart" titleLabel="Heavenly" titleYear="1991" song="02 Only Love Can Break Your Heart" date="09/04/2013" dark="black">83</a>
+            <a href="img/london2.jpg" titleArtiste="Digital Underground" titleTrack="Walk Real Kool" titleLabel="Radikal Records" titleYear="1996" song="01. Walk Real Kool" date="20/03/2013" dark="black">82</a>
+            <a href="img/london1.jpg" titleArtiste="Del Shannon" titleTrack="Gemini" titleLabel="Liberty" titleYear="1968" song="Del Shannon- Gemini" date="16/03/2013" dark="black">81</a>
+            <a href="img/gateau.jpg" titleArtiste="Beauregard Ajax" titleTrack="Happy Brontosaurus" titleLabel="Shadoks Music" titleYear="2006" song="09 Happy Brontosaurus" date="05/03/2013" dark="black">80</a>
+            <a href="img/pcf.jpg" titleArtiste="Judee Sill" titleTrack="Down Where the Valleys Are Low" titleLabel="Asylum" titleYear="1973" song="04 Down Where the Valley Are Low" date="29/01/2013" dark="black">79</a>
+            <a href="img/ny7.jpg" titleArtiste="Public Enemy" titleTrack="Contract On The World Love Jam" titleLabel="Def Jam" titleYear="1990" song="01 Contract On The World Love Jam" date="17/01/2013" dark="black">78</a>
+            <a href="img/ny6.jpg" titleArtiste="Todd Rundgren" titleTrack="It Takes Two to Tango (This is for the Girls)" titleLabel="Bearsville" titleYear="1972" song="1-05 It Takes Two To Tango" date="12/01/2013" dark="black">77</a>
+            <a href="img/chaise.jpg" titleArtiste="Les Fils de Joie" titleTrack="Adieu Paris" titleLabel="Dejoie International" titleYear="1982" song="1-19 Adieu Paris" date="03/01/2013" dark="black">76</a>
+            <a href="img/ny5.jpg" titleArtiste="John Cage & Stephen Drury" titleTrack="In A Landscape" titleLabel="Catalyst" titleYear="1994" song="01 In a Landscape (1948)" date="19/12/2012" dark="black">75</a>
+            <a href="img/calvi6.jpg" titleArtiste="Prefab Sprout" titleTrack="When Love Breaks Down" titleLabel="Kitchenware" titleYear="1985" song="04 When Love Breaks Down" date="13/12/2012" dark="black">74</a>
+            <a href="img/calvi5.jpg" titleArtiste="Duncan Browne" titleTrack="The Ghost Walks" titleLabel="Immediate" titleYear="1968" song="04 The Ghost Walks" date="05/12/2012" dark="black">73</a>
+            <a href="img/radieuse.jpg" titleArtiste="Piero Piccioni" titleTrack="Magic Castle" titleLabel="EMI" titleYear="1966" song="05 Magic Castle" date="29/11/2012" dark="black">72</a>
+            <a href="img/grece05.jpg" titleArtiste="OutKast" titleTrack="Aquemini" titleLabel="Laface Records" titleYear="1998" song="Aquemini" date="22/11/2012" dark="black">71</a>
+            <a href="img/grece04.jpg" titleArtiste="Townes Van Zandt" titleTrack="Our Mother The Mountain" titleLabel="Tomato" titleYear="1969" song="05 our mother the mountain" date="08/11/2012" dark="black">70</a>
+            <a href="img/grece03.jpg" titleArtiste="Subway" titleTrack="Horizons" titleLabel="Soul Jazz Records" titleYear="2009" song="07 Horizons" date="22/10/2012" dark="black">69</a>
+            <a href="img/grece02.jpg" titleArtiste="John Martyn" titleTrack="Walk To The Water (Take 3)" titleLabel="Island" titleYear="2005" song="11 Walk On the Water" date="25/09/2012" dark="black">68</a>
+            <a href="img/grece01.jpg" titleArtiste="Bryan Ferry" titleTrack="Which Way To Turn" titleLabel="Virgin" titleYear="1994" song="07 Which Way to Turn" date="14/09/2012" dark="black">67</a>
+            <a href="img/fnaclive.jpg" titleArtiste="Young Marble Giants" titleTrack="Colossal Youth" titleLabel="Rough Trade" titleYear="1980" song="1-07 Colossal Youth" date="26/07/2012" dark="black">66</a>
+            <a href="img/ny4.jpg" titleArtiste="Tears For Fears" titleTrack="Head Over Heels" titleLabel="Mercury" titleYear="1985" song="11 Head Over Heels" date="19/07/2012" dark="black">65</a>
+            <a href="img/lisbon1.jpg" titleArtiste="Wendy Carlos" titleTrack="Country Lane" titleLabel="Columbia" titleYear="1972" song="wendy carlos - country lane" date="02/07/2012" dark="black">64</a>
+            <a href="img/ny3.jpg" titleArtiste="Fleetwood Mac" titleTrack="Hypnotized" titleLabel="Reprise" titleYear="1973" song="fleetwood mac - hypnotized" date="20/06/2012" dark="black">63</a>
+            <a href="img/skate.jpg" titleArtiste="Ryo Kawasaki" titleTrack="Bamboo Child" titleLabel="RCA" titleYear="1976" song="14 Bamboo Child" date="13/06/2012" dark="black">62</a>
+            <a href="img/caiscais.jpg" titleArtiste="Elli & Jacno" titleTrack="L'âge Atomique : Suite et Fin" titleLabel="Vogue" titleYear="1980" song="10 L age atomique _ suite et fin" date="31/05/2012" dark="black">61</a>
+            <a href="img/ny1.jpg" titleArtiste="Shuggie Otis" titleTrack="Inspiration Information" titleLabel="Epic" titleYear="1974" song="01 Inspiration Information" date="25/05/2012" dark="black">60</a>
+            <a href="img/arrosoir.jpg" titleArtiste="David Shire" titleTrack="Theme From 'The Conversation'" titleLabel="Intrada" titleYear="2001" song="01-Theme from The Conversation" date="09/05/2012" dark="black">59</a>
+            <a href="img/above.jpg" titleArtiste="Gangstarr" titleTrack="Above the Clouds" titleLabel="Noo Trybe" titleYear="1998" song="Above The Clouds" date="25/04/2012" dark="black">58</a>
+            <a href="img/cameras.jpg" titleArtiste="Fugu" titleTrack="The Best Of Us" titleLabel="Minty Fresh" titleYear="1999" song="20 The Best of Us" date="18/04/2012" dark="black">57</a>
+            <a href="img/pierre.jpg" titleArtiste="Robert Wyatt" titleTrack="Strange Fruit" titleLabel="Rough Trade" titleYear="1982" song="07 Strange Fruit" date="12/04/2012" dark="black">56</a>
+            <a href="img/starwars.jpg" titleArtiste="Marquis de Sade" titleTrack="Submarines and Icebergs" titleLabel="Cobalt Records" titleYear="1981" song="marquis de siam submarines and icebergs" date="03/04/2012" dark="black">55</a>
+            <a href="img/saab.jpg" titleArtiste="Quasimoto" titleTrack="Come On Feet" titleLabel="Stones Throw Records" titleYear="2000" song="10 Come On Feet" date="22/03/2012" dark="black">54</a>
+            <a href="img/vosges.jpg" titleArtiste="Serge Gainsbourg & Jean-Claude Vannier" titleTrack="Jane Dans la Nuit" titleLabel="Philips" titleYear="1971" song="09 Jane dans la nuit" date="14/03/2012" dark="black">53</a>
+            <a href="img/old.jpg" titleArtiste="Arthur Russell" titleTrack="Make 1, 2" titleLabel="Audika" titleYear="2004" song="Arthur Russell -  Make 1 2" date="06/03/2012" dark="black">52</a>
+            <a href="img/bath.jpg" titleArtiste="Kevin Ayers" titleTrack="Girl On A Swing" titleLabel="Harvest" titleYear="1969" song="04 Girl On A Swing" date="21/02/2012" dark="black">51</a>
+            <a href="img/lustre2.jpg" titleArtiste="Nina Simone" titleTrack="Isn't It A Pity" titleLabel="BMG" titleYear="1972" song="14 Isn't It a Pity" date="07/02/2012" dark="black">50</a>
+            <a href="img/calvi4.jpg" titleArtiste="The Durutti Column" titleTrack="Messidor" titleLabel="Factory" titleYear="1981" song="2-03 Messidor" date="26/01/2012" dark="black">49</a>
+            <a href="img/eve.jpg" titleArtiste="Titonton Duvanté" titleTrack="Foreplay" titleLabel="Starbaby" titleYear="1999" song="titonton duvante - foreplay" date="18/01/2012" dark="black">48</a>
+            <a href="img/corse2.jpg" titleArtiste="Love" titleTrack="Alone Again Or" titleLabel="Elektra" titleYear="1967" song="01 Alone Again Or" date="04/01/2012" dark="black">47</a>
+            <a href="img/vedette.jpg" titleArtiste="Burt Bacharach" titleTrack="Are You There (With Another Girl)" titleLabel="A&M" titleYear="1967" song="04 Are You There (With Another Girl)" date="28/12/2011" dark="black">46</a>
+            <a href="img/chaumont.jpg" titleArtiste="Kenny Dope" titleTrack="Get On Down" titleLabel="TNT Records" titleYear="1994" song="Kenny Dope - Get On Down" date="21/12/2011" dark="black">45</a>
+            <a href="img/courch.jpg" titleArtiste="Kate Bush" titleTrack="Running Up That Hill (A Deal With God)" titleLabel="EMI" titleYear="1985" song="07 Running Up That Hill (A Deal With God)" date="14/12/2011" dark="black">44</a>
+            <a href="img/faubourg.jpg" titleArtiste="Jackson C. Frank" titleTrack="My Name Is Carnival" titleLabel="Sanctuary" titleYear="1965" song="07 My Name Is Carnival" date="07/12/2011" dark="black">43</a>
+            <a href="img/bastilleday2.jpg" titleArtiste="Sheila E." titleTrack="The Glamorous Life (Club Edit)" titleLabel="Warner" titleYear="1984" song="07 The Glamorous Life" date="01/12/2011" dark="black">42</a>
+            <a href="img/defense.jpg" titleArtiste="Junior Boys" titleTrack="Teach Me How To Fight" titleLabel="Kin" titleYear="2003" song="1-09 Teach Me How To Fight" date="23/11/2011" dark="black">41</a>
+            <a href="img/ny2.jpg" titleArtiste="Siouxsie and the Banshees" titleTrack="Rawhead and Bloodybones" titleLabel="Geffen" titleYear="1988" song="08 Rawhead and Bloody Bones" date="03/11/2011" dark="black">40</a>
+            <a href="img/stlys.jpg" titleArtiste="Bon Iver" titleTrack="Hinnom, TX" titleLabel="Jagjaguwar" titleYear="2011" song="06 Hinnom TX" date="26/10/2011" dark="black">39</a>
+            <a href="img/myprovence05.jpg" titleArtiste="Laurence Vanay" titleTrack="Le C&oelig;ur Lourd" titleLabel="S.F.P." titleYear="1974" song="06 Le coeur lourd" date="20/10/2011" dark="black">38</a>
+            <a href="img/camargue2.jpg" titleArtiste="The Beach Boys" titleTrack="Long Promised Road" titleLabel="Caribou" titleYear="1971" song="14 Long Promised Road" date="12/10/2011" dark="black">37</a>
+            <a href="img/corse1.jpg" titleArtiste="Montage" titleTrack="She's Alone" titleLabel="Laurie Records" titleYear="1969" song="02 She's Alone" date="06/10/2011" dark="black">36</a>
+            <a href="img/ny.jpg" titleArtiste="Lucio Battisti" titleTrack="29 Settembre" titleLabel="Dischi Ricordi" titleYear="1969" song="07 29 Settembre" date="29/09/2011" dark="black">35</a>
+            <a href="img/miami15.jpg" titleArtiste="Big Star" titleTrack="September Gurls" titleLabel="Ardent Records" titleYear="1974" song="22 September Gurls" date="15/09/2011" dark="black">34</a>
+            <a href="img/ocana.jpg" titleArtiste="Orchestral Manoeuvres In The Dark" titleTrack="Architecture & Morality" titleLabel="Virgin" titleYear="1981" song="07 Architecture And Morality" date="07/09/2011" dark="black">33</a>
+            <a href="img/gamin.jpg" titleArtiste="Siah & Yeshua DapoED" titleTrack="The Visualz" titleLabel="Fondle 'Em" titleYear="1996" song="01 The Visualz" date="01/09/2011" dark="black">32</a>
+            <a href="img/gaby.jpg" titleArtiste="Cybotron" titleTrack="Cosmic Cars" titleLabel="Fantasy" titleYear="1983" song="03 Cosmic Cars" date="25/08/2011" dark="black">31</a>
+            <a href="img/myprovence04.jpg" titleArtiste="Sagittarius" titleTrack="Another Time" titleLabel="Columbia" titleYear="1968" song="01 Another Time" date="10/08/2011" dark="black">30</a>
+            <a href="img/calvi3.jpg" titleArtiste="24-Carat Black" titleTrack="I Don't Love You" titleLabel="Numero Group" titleYear="2009" song="03 I Don't Love You" date="28/07/2011" dark="black">29</a>
+            <a href="img/bastilleday.jpg" titleArtiste="Connan Mockasin" titleTrack="Unicorn In Uniform" titleLabel="Phantasy Sound" titleYear="2010" song="17 Unicorn in Uniform" date="20/07/2011" dark="black">28</a>
+            <a href="img/calvi2.jpg" titleArtiste="Pépé Bradock" titleTrack="Deep Burnt" titleLabel="Kif Recordings" titleYear="1999" song="Deep burnt" date="13/07/2011" dark="black">27</a>
+            <a href="img/calvi.jpg" titleArtiste="Seaside Lovers" titleTrack="Wind, Wave & Wineglass" titleLabel="CBS" titleYear="1983" song="06 Wind Wave Wineglass" date="29/06/2011" dark="black">26</a>
+            <a href="img/ladefense.jpg" titleArtiste="Talk Talk" titleTrack="Wealth" titleLabel="EMI" titleYear="1988" song="06 Wealth" date="22/06/2011" dark="black">25</a>
+            <a href="img/julie.jpg" titleArtiste="Julie London" titleTrack="Angel Eyes" titleLabel="Liberty Records" titleYear="1959" song="05 Angel Eyes" date="15/06/2011" dark="black">24</a>
+            <a href="img/ciotat.jpg" titleArtiste="Richard Hawley" titleTrack="Open Up Your Door" titleLabel="Mute" titleYear="2009" song="02 Open Up Your Door" date="08/06/2011" dark="black">23</a>
+            <a href="img/louvre2.jpg" titleArtiste="New Order" titleTrack="Elegia" titleLabel="Factory Records" titleYear="1985" song="18 Elegia" date="01/06/2011" dark="black">22</a>
+            <a href="img/miami11.jpg" titleArtiste="The Power Station" titleTrack="Some Like It Hot" titleLabel="Capitol" titleYear="1985" song="15 Some Like It Hot" date="26/05/2011" dark="black">21</a>
+            <a href="img/louvre.jpg" titleArtiste="Colin Blunstone" titleTrack="Smokey Day" titleLabel="Epic" titleYear="1971" song="03 Smokey Day" date="17/05/2011" dark="black">20</a>
+            <a href="img/miami14.jpg" titleArtiste="Drexciya" titleTrack="Cascading Celestial Giants" titleLabel="Clone" titleYear="2002" song="01 - cascading celestial giants-2" date="11/05/2011" dark="black">19</a>
+            <a href="img/camargue.jpg" titleArtiste="Brian Eno" titleTrack="By This River" titleLabel="EG Records" titleYear="1977" song="08 By this River" date="05/05/2011" dark="black">18</a>
+            <a href="img/myprovence03.jpg" titleArtiste="The Cure" titleTrack="Dressing Up" titleLabel="Sire" titleYear="1984" song="Dressing Up" date="27/04/2011" dark="black">17</a>
+            <a href="img/myprovence02.jpg" titleArtiste="Claude Debussy" titleTrack="Doctor Gradus At Parnassum Children's Corner (by Samson François) / EMI" titleLabel="" titleYear="1973" song="01 Doctor Gradus At Parnassum Children s Corner" date="20/04/2011" dark="black">16</a>
+            <a href="img/myprovence01.jpg" titleArtiste="Fever Ray" titleTrack="When I Grow Up" titleLabel="Rabid Records" titleYear="2009" song="02 When I Grow Up" date="13/04/2011" dark="white">15</a>
+            <a href="img/mexique02.jpg" titleArtiste="Tangerine Dream" titleTrack="Beach Scene" titleLabel="Virgin" titleYear="1981" song="04 Beach Scene" date="06/04/2011" dark="black">14</a>
+            <a href="img/miami6.jpg" titleArtiste="Ennio Morricone" titleTrack="Cavallina A Cavallo" titleLabel="Quartet Records" titleYear="1979" song="04 Cavallina A Cavallo" date="30/03/2011" dark="black">13</a>
+            <a href="img/oxana.jpg" titleArtiste="Brenda & The Tabulations" titleTrack="The Touch Of You" titleLabel="Top & Bottom Records" titleYear="1969" song="09 -  The Touch Of You" date="24/03/2011" dark="black">12</a>
+            <a href="img/miami2.jpg" titleArtiste="Simple Minds" titleTrack="Theme For Great Cities" titleLabel="Virgin" titleYear="1981" song="09 Theme For Great Cities (2002 Digital Remaster)" date="16/03/2011" dark="white">11</a>
+            <a href="img/miami13.jpg" titleArtiste="Ceephax Acid Crew" titleTrack="Acid Le Soken" titleLabel="Breakin' Records" titleYear="2003" song="ceephax" date="11/03/2011" dark="white">10</a>
+            <a href="img/miami9.jpg" titleArtiste="Gershon Kingsley's First Moog Quartet" titleTrack="Rebirth" titleLabel="Audio Fidelity" titleYear="1970" song="Rebirth" date="03/03/2011" dark="white">9</a>
+            <a href="img/miami10.jpg" titleArtiste="Nino Ferrer" titleTrack="Looking For You" titleLabel="Barclay" titleYear="1974" song="07 looking for you" date="24/02/2011" dark="white">8</a>
+            <a href="img/ecosse1.jpg" titleArtiste="Marmalade" titleTrack="Reflections Of My Life" titleLabel="Decca" titleYear="1969" song="16 Reflections of My Life" date="10/02/2011" dark="white">7</a>
+            <a href="img/teuneuss.jpg" titleArtiste="A Tribe Called Quest" titleTrack="Award Tour" titleLabel="Jive Records" titleYear="1993" song="03 Award Tour" date="04/02/2011" dark="fondblack">6</a>
+            <a href="img/monotonix.jpg" titleArtiste="The Stone Roses" titleTrack="She Bangs The Drums" titleLabel="Silvertone Records" titleYear="1989" song="02 She Bangs The Drums" date="28/01/2011" dark="fond">5</a>
+            <a href="img/makina1.jpg" titleArtiste="Linda Perhacs" titleTrack="If You Were My Man (demo)" titleLabel="Kapp Records" titleYear="1970" song="12 If You Were My Man [demo]" date="22/01/2011" dark="white">4</a>
+            <a href="img/cassis.jpg" titleArtiste="Shriekback" titleTrack="Lined Up" titleLabel="Y Records" titleYear="1983" song="Lined Up" date="20/01/2011" dark="fond">3</a>
+            <a href="img/biarritz02.jpg" titleArtiste="Wendy & Bonnie" titleTrack="By The Sea" titleLabel="Skye Records" titleYear="1969" song="Wendy and Bonnie - By the Sea" date="19/01/2011" dark="white">2</a>
+            <a href="img/mexique01.jpg" titleArtiste="Neil Young" titleTrack="Computer Age" titleLabel="Geffen Records" titleYear="1982" song="02 Computer Age" date="17/01/2011" dark="white">1</a>
+			<br style="clear:both"/>
+	  </fieldset>
+
+        
+	</div>
+  </div>
+</div>
+	
+
+</div>
+		
+	</div>
+
+<!--<div id="showtitle">
+		 <p class="imagecount small">1 of 1</p>
+		 <p class="title small">description</p>
+	</div> no need for this anymore-->
+
+
+	
+</body>
+</html>
