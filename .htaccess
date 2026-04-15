@@ -1,0 +1,4 @@
+# Content-Security-Policy
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"
+</IfModule>
