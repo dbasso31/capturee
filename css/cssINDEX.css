@@ -264,6 +264,115 @@ input.rounded:focus {
 ::-moz-placeholder {  /* Firefox 19+ */
    color: #CCCCCC;  
 }
-:-ms-input-placeholder {  
-   color: #CCCCCC;  
+:-ms-input-placeholder {
+   color: #CCCCCC;
+}
+
+#mobileTagline { display: none; }
+
+@media (max-width: 768px) {
+    body { margin-top: 20px; }
+
+    #header {
+        width: 100%;
+        height: auto;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    #logo {
+        float: none;
+        width: 100%;
+        text-align: center;
+        left: 0;
+        top: 10px;
+    }
+    #lineSeparation1, #lineSeparation2 { display: none; }
+    #middleText { display: none; }
+    #mobileTagline {
+        display: block;
+        text-align: center;
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 16px;
+        font-style: italic;
+        color: #999;
+        line-height: 26px;
+        padding: 12px 20px 20px;
+    }
+
+    #middlePush, #middlePush2 {
+        width: 100%;
+        height: auto;
+        padding: 10px 0 20px;
+    }
+    #photoCadre {
+        float: none;
+        width: 100%;
+        height: auto;
+    }
+    /* Carousel : clip + items calés sur le ratio 368x300 de l'image */
+    .jcarousel-skin-tango .jcarousel-container-vertical {
+        width: 100% !important;
+        height: calc(100vw * 0.8152) !important;
+    }
+    .jcarousel-skin-tango .jcarousel-clip-vertical {
+        width: 100% !important;
+        height: calc(100vw * 0.8152) !important;
+    }
+    .jcarousel-skin-tango .jcarousel-item {
+        width: 100% !important;
+        height: calc(100vw * 0.8152) !important;
+    }
+    .jcarousel-skin-tango .jcarousel-item img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #pushCadre {
+        float: none !important;
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 8px 0 !important;
+        box-sizing: border-box !important;
+    }
+    #pushBTN {
+        display: none !important;
+    }
+    #pushTXT {
+        float: none !important;
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        font-size: 18px !important;
+        text-align: center !important;
+        margin-left: 0 !important;
+    }
+
+    #footer { height: auto; }
+    #footer2 {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    #Credits {
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+    #RS {
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+    #RSfb {
+        float: none;
+        position: static;
+        width: auto;
+        margin: 10px auto;
+    }
+    hr { width: 100% !important; }
 }
